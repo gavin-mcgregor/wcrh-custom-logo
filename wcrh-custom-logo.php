@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Custom Logo
- * Description:       Example block scaffolded with Create Block tool.
+ * Description:       Add a custom svg logo to your website
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0
