@@ -1,5 +1,5 @@
 === Custom Logo ===
-Contributors:      The WordPress Contributors, Gavin McGregor
+Contributors:      Gavin McGregor, The WordPress Contributors
 Tags:              block
 Tested up to:      6.1
 Stable tag:        0.1.0
