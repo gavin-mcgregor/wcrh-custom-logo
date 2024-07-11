@@ -98,10 +98,13 @@ function Edit({
   attributes,
   setAttributes
 }) {
-  // Select & save the fill colour
+  // Atrributes
   const {
-    fill
+    fill,
+    width
   } = attributes;
+
+  // Select & save the fill colour
   const onChangeFill = newColor => {
     setAttributes({
       fill: newColor
@@ -121,17 +124,46 @@ function Edit({
       setSvgContent(dataStyled);
     });
   }, [fill]);
+
+  // Conditional Style
+  const defaultWidth = 250;
+  let blockStyle;
+  if (width) {
+    blockStyle = {
+      maxWidth: `${width}px`
+    };
+  } else {
+    blockStyle = {
+      maxWidth: `${defaultWidth}px`
+    };
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logo Settings")
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+    direction: "column"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logo Colour"),
     colors: paletteColors.map(color => ({
       name: color.name,
       color: color.color
     })),
     value: fill,
     onChange: onChangeFill
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logo Width"),
+    value: width,
+    onChange: value => setAttributes({
+      width: value
+    }),
+    min: 100,
+    max: 500,
+    initialPosition: defaultWidth,
+    allowReset: true,
+    step: 50,
+    withInputField: true
+  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
+    style: blockStyle
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `svg-container${fill ? ` fill-${fill}` : ""}`,
     dangerouslySetInnerHTML: {
@@ -290,7 +322,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"wcrh/wcrh-custom-logo","version":"0.1.0","title":"Custom Logo","category":"custom-block","example":{},"attributes":{"fill":{"type":"string"}},"supports":{"html":false},"textdomain":"wcrh-custom-logo","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"wcrh/wcrh-custom-logo","version":"0.1.0","title":"Custom Logo","category":"custom-block","example":{},"attributes":{"fill":{"type":"string"},"width":{"type":"number"}},"supports":{"html":false},"textdomain":"wcrh-custom-logo","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 

@@ -9,6 +9,9 @@
 	"attributes": {
 		"fill": {
 			"type": "string"
+		},
+		"width": {
+			"type": "number"
 		}
 	},
 	"supports": {

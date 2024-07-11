@@ -12,7 +12,13 @@ import { __ } from "@wordpress/i18n";
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
-import { PanelBody, ColorPalette } from "@wordpress/components";
+import {
+	PanelBody,
+	ColorPalette,
+	RangeControl,
+	Flex,
+	FlexItem,
+} from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
 
 /**
@@ -37,8 +43,10 @@ import { useEffect, useState } from "@wordpress/element";
 import logoSVG from "../assets/logo.svg";
 
 export default function Edit({ attributes, setAttributes }) {
+	// Atrributes
+	const { fill, width } = attributes;
+
 	// Select & save the fill colour
-	const { fill } = attributes;
 	const onChangeFill = (newColor) => {
 		setAttributes({ fill: newColor });
 	};
@@ -59,21 +67,52 @@ export default function Edit({ attributes, setAttributes }) {
 			});
 	}, [fill]);
 
+	// Conditional Style
+	const defaultWidth = 250;
+	let blockStyle;
+	if (width) {
+		blockStyle = {
+			maxWidth: `${width}px`,
+		};
+	} else {
+		blockStyle = {
+			maxWidth: `${defaultWidth}px`,
+		};
+	}
+
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody title={__("Logo Settings")}>
-					<ColorPalette
-						colors={paletteColors.map((color) => ({
-							name: color.name,
-							color: color.color,
-						}))}
-						value={fill}
-						onChange={onChangeFill}
-					/>
+					<Flex direction="column">
+						<FlexItem>
+							<ColorPalette
+								label={__("Logo Colour")}
+								colors={paletteColors.map((color) => ({
+									name: color.name,
+									color: color.color,
+								}))}
+								value={fill}
+								onChange={onChangeFill}
+							/>
+						</FlexItem>
+						<FlexItem>
+							<RangeControl
+								label={__("Logo Width")}
+								value={width}
+								onChange={(value) => setAttributes({ width: value })}
+								min={100}
+								max={500}
+								initialPosition={defaultWidth}
+								allowReset={true}
+								step={50}
+								withInputField={true}
+							/>
+						</FlexItem>
+					</Flex>
 				</PanelBody>
 			</InspectorControls>
-			<div {...useBlockProps()}>
+			<div {...useBlockProps()} style={blockStyle}>
 				<div
 					className={`svg-container${fill ? ` fill-${fill}` : ""}`}
 					dangerouslySetInnerHTML={{ __html: svgContent }}

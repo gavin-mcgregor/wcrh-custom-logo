@@ -4,13 +4,11 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-
 .wp-block-wcrh-wcrh-custom-logo {
-	width: 100%;
-	flex-grow: 1;
-
-	svg {
-		fill: #000;
-		width: 100%;
-	}
+  width: 100%;
+  flex-grow: 1;
 }
+.wp-block-wcrh-wcrh-custom-logo svg {
+  fill: #000;
+  width: 100%;
+}/*# sourceMappingURL=style.css.map */

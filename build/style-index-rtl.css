@@ -8,8 +8,8 @@
  * Replace them with your own styles or remove the file completely.
  */
 .wp-block-wcrh-wcrh-custom-logo {
-  max-width: 200px;
   width: 100%;
+  flex-grow: 1;
 }
 .wp-block-wcrh-wcrh-custom-logo svg {
   fill: #000;
