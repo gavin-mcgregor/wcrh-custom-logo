@@ -1,8 +1,8 @@
 {
 	"name": "wcrh-custom-logo",
 	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
+	"description": "Add custom svg logo",
+	"author": "Gavin McGregor",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
