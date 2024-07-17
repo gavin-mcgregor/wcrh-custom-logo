@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "wcrh/wcrh-custom-logo",
+	"name": "wcrh/custom-logo",
 	"version": "0.1.0",
-	"title": "Custom Logo",
+	"title": "Logo",
 	"category": "custom-block",
 	"example": {},
 	"attributes": {
@@ -17,7 +17,7 @@
 	"supports": {
 		"html": false
 	},
-	"textdomain": "wcrh-custom-logo",
+	"textdomain": "custom-logo",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",

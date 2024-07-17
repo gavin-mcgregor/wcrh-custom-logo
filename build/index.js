@@ -322,7 +322,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"wcrh/wcrh-custom-logo","version":"0.1.0","title":"Custom Logo","category":"custom-block","example":{},"attributes":{"fill":{"type":"string"},"width":{"type":"number"}},"supports":{"html":false},"textdomain":"wcrh-custom-logo","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"wcrh/custom-logo","version":"0.1.0","title":"Logo","category":"custom-block","example":{},"attributes":{"fill":{"type":"string"},"width":{"type":"number"}},"supports":{"html":false},"textdomain":"custom-logo","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 

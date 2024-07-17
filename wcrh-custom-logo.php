@@ -25,8 +25,8 @@ if (!defined('ABSPATH')) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function wcrh_wcrh_custom_logo_block_init()
+function wcrh_custom_logo_block_init()
 {
 	register_block_type(__DIR__ . '/build');
 }
-add_action('init', 'wcrh_wcrh_custom_logo_block_init');
+add_action('init', 'wcrh_custom_logo_block_init');
