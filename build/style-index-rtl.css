@@ -12,6 +12,46 @@
   flex-grow: 1;
 }
 .wp-block-wcrh-custom-logo svg {
-  fill: #000;
+  fill: var(--wp--preset--color--contrast, #000);
   width: 100%;
+}
+
+.has-base-color svg {
+  fill: var(--wp--preset--color--base);
+}
+
+.has-base-2-color svg {
+  fill: var(--wp--preset--color--base-2);
+}
+
+.has-contrast-color svg {
+  fill: var(--wp--preset--color--contrast);
+}
+
+.has-contrast-2-color svg {
+  fill: var(--wp--preset--color--contrast-2);
+}
+
+.has-contrast-3-color svg {
+  fill: var(--wp--preset--color--contrast-3);
+}
+
+.has-accent-color svg {
+  fill: var(--wp--preset--color--accent);
+}
+
+.has-accent-2-color svg {
+  fill: var(--wp--preset--color--accent-2);
+}
+
+.has-accent-3-color svg {
+  fill: var(--wp--preset--color--accent-3);
+}
+
+.has-accent-4-color svg {
+  fill: var(--wp--preset--color--accent-4);
+}
+
+.has-accent-5-color svg {
+  fill: var(--wp--preset--color--accent-5);
 }
