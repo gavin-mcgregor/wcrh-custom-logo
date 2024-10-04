@@ -4,10 +4,16 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 
+// Get the user-uploaded logo from block attributes
+$custom_logo = !empty($attributes['logo']) ? esc_url($attributes['logo']) : '';
 
-// Get SVG 
-$svg_path = plugin_dir_path(dirname(__FILE__)) . 'assets/logo.svg';
-$svg_content = file_get_contents($svg_path);
+// Get the default logo if no custom logo is provided
+if (empty($custom_logo)) {
+	$svg_path = plugin_dir_path(dirname(__FILE__)) . 'assets/logo.svg';
+	$svg_content = file_get_contents($svg_path);
+} else {
+	$svg_content = file_get_contents($custom_logo);
+}
 
 if (!empty($attributes['fill'])) {
 	// Load SVG content into DOMDocument

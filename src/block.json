@@ -7,6 +7,9 @@
 	"category": "custom-block",
 	"example": {},
 	"attributes": {
+		"logo": {
+			"type": "string"
+		},
 		"fill": {
 			"type": "string"
 		},

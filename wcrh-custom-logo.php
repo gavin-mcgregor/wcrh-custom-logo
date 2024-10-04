@@ -30,3 +30,12 @@ function wcrh_custom_logo_block_init()
 	register_block_type(__DIR__ . '/build');
 }
 add_action('init', 'wcrh_custom_logo_block_init');
+
+
+// Add SVG to allowed upload types
+function custom_logo_allow_svg_uploads($mime_types)
+{
+	$mime_types['svg'] = 'image/svg+xml';
+	return $mime_types;
+}
+add_filter('upload_mimes', 'custom_logo_allow_svg_uploads');

@@ -11,11 +11,17 @@ import { __ } from "@wordpress/i18n";
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
+import {
+	InspectorControls,
+	useBlockProps,
+	MediaUpload,
+	MediaUploadCheck,
+} from "@wordpress/block-editor";
 import {
 	PanelBody,
 	ColorPalette,
 	RangeControl,
+	Button,
 	Flex,
 	FlexItem,
 } from "@wordpress/components";
@@ -44,7 +50,7 @@ import logoSVG from "../assets/logo.svg";
 
 export default function Edit({ attributes, setAttributes }) {
 	// Atrributes
-	const { fill, width } = attributes;
+	const { fill, width, logo } = attributes;
 
 	// Select & save the fill colour
 	const onChangeFill = (newColor) => {
@@ -59,13 +65,23 @@ export default function Edit({ attributes, setAttributes }) {
 	// Convert to HTML
 	const [svgContent, setSvgContent] = useState("");
 	useEffect(() => {
-		fetch(logoSVG)
-			.then((response) => response.text())
-			.then((data) => {
-				const dataStyled = data.replace("<svg", `<svg style="fill: ${fill}"`);
-				setSvgContent(dataStyled);
-			});
-	}, [fill]);
+		if (logo) {
+			// If a custom logo is uploaded, fetch its content
+			fetch(logo)
+				.then((response) => response.text())
+				.then((data) => {
+					const dataStyled = data.replace("<svg", `<svg style="fill: ${fill}"`);
+					setSvgContent(dataStyled);
+				});
+		} else {
+			fetch(logoSVG)
+				.then((response) => response.text())
+				.then((data) => {
+					const dataStyled = data.replace("<svg", `<svg style="fill: ${fill}"`);
+					setSvgContent(dataStyled);
+				});
+		}
+	}, [logo, fill]);
 
 	// Conditional Style
 	const defaultWidth = 250;
@@ -80,9 +96,49 @@ export default function Edit({ attributes, setAttributes }) {
 		};
 	}
 
+	// Handle removing the uploaded logo
+	const onRemoveLogo = () => {
+		setAttributes({ logo: "" });
+	};
+
+	// Set attribute for logo
+	const onSelectFile = (media) => {
+		setAttributes({ logo: media.url });
+	};
+
 	return (
 		<>
 			<InspectorControls>
+				<PanelBody title={__("Logo Upload")}>
+					<Flex direction="column">
+						<FlexItem>
+							<MediaUploadCheck>
+								<MediaUpload
+									onSelect={onSelectFile}
+									allowedTypes={["image/svg+xml"]}
+									render={({ open }) => (
+										<Button onClick={open} isPrimary>
+											{logo ? __("Change Logo File") : __("Upload Logo File")}
+										</Button>
+									)}
+								/>
+							</MediaUploadCheck>
+						</FlexItem>
+						<FlexItem>
+							<span style={{ fontStyle: "italic" }}>
+								*Upload Logo file as SVG
+							</span>
+						</FlexItem>
+						{logo && (
+							<FlexItem>{__("Logo File: ") + logo.split("/").pop()}</FlexItem>
+						)}
+						<FlexItem>
+							<Button onClick={onRemoveLogo} isDestructive isSecondary>
+								{__("Remove Logo")}
+							</Button>
+						</FlexItem>
+					</Flex>
+				</PanelBody>
 				<PanelBody title={__("Logo Settings")}>
 					<Flex direction="column">
 						<FlexItem>
@@ -101,11 +157,11 @@ export default function Edit({ attributes, setAttributes }) {
 								label={__("Logo Width")}
 								value={width}
 								onChange={(value) => setAttributes({ width: value })}
-								min={100}
-								max={500}
+								min={28}
+								max={600}
 								initialPosition={defaultWidth}
 								allowReset={true}
-								step={50}
+								step={16}
 								withInputField={true}
 							/>
 						</FlexItem>

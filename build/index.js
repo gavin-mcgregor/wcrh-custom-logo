@@ -125,7 +125,8 @@ function Edit({
   // Atrributes
   const {
     fill,
-    width
+    width,
+    logo
   } = attributes;
 
   // Select & save the fill colour
@@ -143,11 +144,19 @@ function Edit({
   // Convert to HTML
   const [svgContent, setSvgContent] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useState)("");
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
-    fetch(_assets_logo_svg__WEBPACK_IMPORTED_MODULE_7__["default"]).then(response => response.text()).then(data => {
-      const dataStyled = data.replace("<svg", `<svg style="fill: ${fill}"`);
-      setSvgContent(dataStyled);
-    });
-  }, [fill]);
+    if (logo) {
+      // If a custom logo is uploaded, fetch its content
+      fetch(logo).then(response => response.text()).then(data => {
+        const dataStyled = data.replace("<svg", `<svg style="fill: ${fill}"`);
+        setSvgContent(dataStyled);
+      });
+    } else {
+      fetch(_assets_logo_svg__WEBPACK_IMPORTED_MODULE_7__["default"]).then(response => response.text()).then(data => {
+        const dataStyled = data.replace("<svg", `<svg style="fill: ${fill}"`);
+        setSvgContent(dataStyled);
+      });
+    }
+  }, [logo, fill]);
 
   // Conditional Style
   const defaultWidth = 250;
@@ -161,7 +170,42 @@ function Edit({
       maxWidth: `${defaultWidth}px`
     };
   }
+
+  // Handle removing the uploaded logo
+  const onRemoveLogo = () => {
+    setAttributes({
+      logo: ""
+    });
+  };
+
+  // Set attribute for logo
+  const onSelectFile = media => {
+    setAttributes({
+      logo: media.url
+    });
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logo Upload")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+    direction: "column"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUploadCheck, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUpload, {
+    onSelect: onSelectFile,
+    allowedTypes: ["image/svg+xml"],
+    render: ({
+      open
+    }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+      onClick: open,
+      isPrimary: true
+    }, logo ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Change Logo File") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Upload Logo File"))
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    style: {
+      fontStyle: "italic"
+    }
+  }, "*Upload Logo file as SVG")), logo && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FlexItem, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logo File: ") + logo.split("/").pop()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FlexItem, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    onClick: onRemoveLogo,
+    isDestructive: true,
+    isSecondary: true
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Remove Logo"))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logo Settings")
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     direction: "column"
@@ -179,11 +223,11 @@ function Edit({
     onChange: value => setAttributes({
       width: value
     }),
-    min: 100,
-    max: 500,
+    min: 28,
+    max: 600,
     initialPosition: defaultWidth,
     allowReset: true,
-    step: 50,
+    step: 16,
     withInputField: true
   }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
@@ -349,7 +393,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"wcrh/custom-logo","version":"0.1.0","title":"Logo","category":"custom-block","example":{},"attributes":{"fill":{"type":"string"},"width":{"type":"number"}},"supports":{"html":false},"textdomain":"custom-logo","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"wcrh/custom-logo","version":"0.1.0","title":"Logo","category":"custom-block","example":{},"attributes":{"logo":{"type":"string"},"fill":{"type":"string"},"width":{"type":"number"}},"supports":{"html":false},"textdomain":"custom-logo","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 
